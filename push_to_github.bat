@@ -1,38 +1,24 @@
 @echo off
-chcp 65001 >nul
-title COM3708 IoT - Push to GitHub Pages
+cd /d "%~dp0"
+title COM3708 IoT - Pushing to GitHub
 color 0B
-echo.
+cls
 echo ========================================================
 echo    COM3708 IoT - Push Website to GitHub
 echo    Target: https://github.com/cj007zaza/iot.git
 echo ========================================================
 echo.
-echo กำลังทำการ Push ไฟล์ขึ้นสู่ GitHub Repository...
-echo (หากมีหน้าต่างหรือเบราว์เซอร์ให้ล็อกอิน GitHub กรุณากดยืนยัน)
+echo [1/2] Connecting to GitHub...
+echo [2/2] Pushing all 238 slides and index.html to branch main...
 echo.
 
 git push -u origin main
 
-if %ERRORLEVEL% EQU 0 (
-    echo.
-    echo ========================================================
-    echo  [✓] Push สำเร็จเรียบร้อยแล้ว!
-    echo ========================================================
-    echo.
-    echo ขั้นตอนเปิดเว็บออนไลน์ (GitHub Pages):
-    echo 1. เข้าไปที่: https://github.com/cj007zaza/iot/settings/pages
-    echo 2. ตรง Branch เลือก: main
-    echo 3. โฟลเดอร์เลือก: /(root)
-    echo 4. กดปุ่ม Save
-    echo.
-    echo รอประมาณ 1 นาที เว็บไซต์จะออนไลน์ที่ลิงก์:
-    echo 👉 https://cj007zaza.github.io/iot/
-    echo.
-) else (
-    echo.
-    echo [!] การ Push ไม่สำเร็จ กรุณาตรวจสอบสิทธิ์การล็อกอิน GitHub อีกครั้ง
-    echo.
-)
-
+echo.
+echo ========================================================
+echo  Process completed! Check the output above.
+echo  If it says 'Branch main set up to track remote branch',
+echo  the push was 100%% successful!
+echo ========================================================
+echo.
 pause

@@ -2,9 +2,9 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>COM3708 Internet of Things (IoT) | สรุปเนื้อหาทุกบทฉบับสมบูรณ์</title>
-  <meta name="description" content="สรุปเนื้อหาสไลด์ทุกบท 100% ครบ 238 สไลด์ วิชา COM3708 IoT ผศ.ประธาน คำจินะ พร้อมภาพประกอบ คำย่อ คำเต็ม และคำอธิบายเสริม">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>COM3708 Internet of Things (IoT) | สรุปเนื้อหาและแฟลชการ์ดทบทวน</title>
+  <meta name="description" content="สรุปเนื้อหาสไลด์ทุกบท 100% ครบ 238 สไลด์ พร้อมระบบแฟลชการ์ดทบทวนเนื้อหา เซ็นเซอร์ คำย่อ วิชา COM3708 IoT ผศ.ประธาน คำจินะ">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -37,12 +37,13 @@
     }
     
     body {
-      font-family: 'Prompt', sans-serif;
+      font-family: 'Prompt', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       background-color: var(--bg-body);
       color: var(--text-main);
       line-height: 1.7;
       padding-top: 75px;
       scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
     }
 
     /* Top Sticky Navigation */
@@ -54,20 +55,22 @@
       height: 75px;
       background: var(--bg-header);
       backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border-color);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 30px;
+      padding: 0 20px;
       z-index: 1000;
     }
 
     .nav-brand {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       text-decoration: none;
       color: var(--text-main);
+      flex-shrink: 0;
     }
 
     .brand-badge {
@@ -76,14 +79,14 @@
       font-weight: 700;
       padding: 4px 10px;
       border-radius: 6px;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       letter-spacing: 0.5px;
     }
 
     .brand-title {
-      font-size: 1.15rem;
+      font-size: 1.1rem;
       font-weight: 600;
-      letter-spacing: 0.2px;
+      white-space: nowrap;
     }
 
     .nav-links {
@@ -91,19 +94,28 @@
       gap: 6px;
       align-items: center;
       overflow-x: auto;
-      max-width: 65%;
+      max-width: 70%;
       padding: 5px 0;
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* IE */
+    }
+
+    .nav-links::-webkit-scrollbar {
+      display: none; /* Chrome/Safari */
     }
 
     .nav-link {
       color: var(--text-muted);
       text-decoration: none;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       padding: 6px 12px;
       border-radius: 6px;
       transition: all 0.2s;
       white-space: nowrap;
       border: 1px solid transparent;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
     }
 
     .nav-link:hover, .nav-link.active {
@@ -112,8 +124,21 @@
       border-color: rgba(56, 189, 248, 0.3);
     }
 
+    .nav-flashcard-btn {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(168, 85, 247, 0.2));
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      font-weight: 600;
+    }
+
+    .nav-flashcard-btn:hover {
+      background: #f59e0b;
+      color: #0b0f19;
+      border-color: #f59e0b;
+    }
+
     .nav-quick-btn {
-      background: rgba(16, 185, 129, 0.15);
+      background: rgba(16, 185, 129, 0.12);
       color: var(--accent-green);
       border: 1px solid rgba(16, 185, 129, 0.3);
       font-weight: 500;
@@ -124,11 +149,57 @@
       color: #0b0f19;
     }
 
+    /* Mobile Hamburger Menu */
+    .mobile-menu-btn {
+      display: none;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1.1rem;
+    }
+
+    .mobile-drawer {
+      display: none;
+      position: fixed;
+      top: 75px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(11, 15, 25, 0.98);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      z-index: 999;
+      padding: 25px 20px;
+      overflow-y: auto;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .mobile-drawer.open {
+      display: flex;
+    }
+
+    .drawer-link {
+      color: var(--text-main);
+      text-decoration: none;
+      font-size: 1.05rem;
+      padding: 12px 16px;
+      border-radius: 8px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
     /* Container */
     .container {
       max-width: 1240px;
       margin: 0 auto;
-      padding: 25px 20px 80px 20px;
+      padding: 20px 16px 80px 16px;
     }
 
     /* Hero Banner */
@@ -136,8 +207,8 @@
       background: linear-gradient(145deg, #151d30, #0e1424);
       border: 1px solid var(--border-color);
       border-radius: 16px;
-      padding: 40px;
-      margin-bottom: 40px;
+      padding: clamp(20px, 5vw, 40px);
+      margin-bottom: 35px;
       box-shadow: var(--shadow-md);
       position: relative;
       overflow: hidden;
@@ -156,15 +227,15 @@
 
     .hero-tags {
       display: flex;
-      gap: 10px;
+      gap: 8px;
       margin-bottom: 15px;
       flex-wrap: wrap;
     }
 
     .tag {
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 500;
-      padding: 4px 12px;
+      padding: 4px 10px;
       border-radius: 20px;
       border: 1px solid;
     }
@@ -172,9 +243,10 @@
     .tag-blue { background: rgba(56, 189, 248, 0.15); color: var(--primary); border-color: rgba(56, 189, 248, 0.4); }
     .tag-green { background: rgba(16, 185, 129, 0.15); color: var(--accent-green); border-color: rgba(16, 185, 129, 0.4); }
     .tag-purple { background: rgba(168, 85, 247, 0.15); color: var(--accent-purple); border-color: rgba(168, 85, 247, 0.4); }
+    .tag-amber { background: rgba(245, 158, 11, 0.15); color: var(--accent-amber); border-color: rgba(245, 158, 11, 0.4); }
 
     .hero-title {
-      font-size: 2.2rem;
+      font-size: clamp(1.5rem, 4vw, 2.3rem);
       font-weight: 700;
       color: #ffffff;
       margin-bottom: 12px;
@@ -182,7 +254,7 @@
     }
 
     .hero-subtitle {
-      font-size: 1.05rem;
+      font-size: clamp(0.9rem, 2vw, 1.05rem);
       color: var(--text-muted);
       margin-bottom: 25px;
       max-width: 900px;
@@ -190,8 +262,8 @@
 
     .hero-stats {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 15px;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
       margin-top: 25px;
     }
 
@@ -199,34 +271,326 @@
       background: rgba(11, 15, 25, 0.6);
       border: 1px solid var(--border-color);
       border-radius: 12px;
-      padding: 16px 20px;
+      padding: 14px 18px;
       display: flex;
       align-items: center;
-      gap: 15px;
+      gap: 12px;
     }
 
     .stat-icon {
-      font-size: 1.8rem;
+      font-size: 1.6rem;
     }
 
     .stat-val {
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       font-weight: 700;
       color: var(--primary);
     }
 
     .stat-label {
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       color: var(--text-muted);
     }
 
-    /* Chapter Header */
+    /* ========================================================
+       FLASHCARDS INTERACTIVE SYSTEM
+       ======================================================== */
+    .flashcards-container {
+      background: linear-gradient(145deg, #131b2e, #0c1220);
+      border: 2px solid rgba(245, 158, 11, 0.4);
+      border-radius: 20px;
+      padding: clamp(20px, 4vw, 35px);
+      margin-bottom: 45px;
+      box-shadow: 0 12px 35px rgba(245, 158, 11, 0.15);
+      position: relative;
+    }
+
+    .fc-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .fc-title-group h2 {
+      font-size: clamp(1.3rem, 3vw, 1.8rem);
+      font-weight: 700;
+      color: #fbbf24;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .fc-title-group p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-top: 4px;
+    }
+
+    /* Category & Filter Tabs */
+    .fc-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .fc-tab-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      padding: 8px 16px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-family: 'Prompt', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .fc-tab-btn:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .fc-tab-btn.active {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: #0b0f19;
+      font-weight: 700;
+      border-color: #f59e0b;
+      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+    }
+
+    .fc-select-filter {
+      background: #0b0f19;
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-family: 'Prompt', sans-serif;
+      font-size: 0.88rem;
+      outline: none;
+      cursor: pointer;
+      margin-left: auto;
+    }
+
+    /* 3D Card Scene */
+    .fc-scene {
+      perspective: 1200px;
+      width: 100%;
+      max-width: 720px;
+      min-height: 320px;
+      margin: 0 auto 25px auto;
+    }
+
+    .fc-card {
+      width: 100%;
+      height: 100%;
+      min-height: 320px;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+      cursor: pointer;
+    }
+
+    .fc-card.is-flipped {
+      transform: rotateY(180deg);
+    }
+
+    .fc-card-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      border-radius: 18px;
+      padding: clamp(20px, 4vw, 35px);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .fc-front {
+      background: linear-gradient(150deg, #1c263d, #141c2c);
+      border-color: rgba(56, 189, 248, 0.3);
+    }
+
+    .fc-back {
+      background: linear-gradient(150deg, #1a2936, #11202e);
+      border-color: rgba(16, 185, 129, 0.4);
+      transform: rotateY(180deg);
+    }
+
+    .fc-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .fc-badge {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .badge-chapter { background: rgba(56, 189, 248, 0.2); color: var(--primary); border: 1px solid rgba(56, 189, 248, 0.4); }
+    .badge-sensor { background: rgba(16, 185, 129, 0.2); color: var(--accent-green); border: 1px solid rgba(16, 185, 129, 0.4); }
+    .badge-acronym { background: rgba(245, 158, 11, 0.2); color: var(--accent-amber); border: 1px solid rgba(245, 158, 11, 0.4); }
+    .badge-actuator { background: rgba(168, 85, 247, 0.2); color: var(--accent-purple); border: 1px solid rgba(168, 85, 247, 0.4); }
+
+    .fc-card-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      padding: 10px 0;
+    }
+
+    .fc-question {
+      font-size: clamp(1.15rem, 2.5vw, 1.45rem);
+      font-weight: 600;
+      color: #ffffff;
+      line-height: 1.5;
+    }
+
+    .fc-answer {
+      font-size: clamp(0.92rem, 1.8vw, 1.05rem);
+      color: #e2e8f0;
+      line-height: 1.7;
+      text-align: left;
+    }
+
+    .fc-hint-footer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      margin-top: 15px;
+      padding-top: 12px;
+      border-top: 1px dashed rgba(255, 255, 255, 0.1);
+    }
+
+    /* Controls & Progress */
+    .fc-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .fc-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-family: 'Prompt', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .fc-btn:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    .fc-btn-primary {
+      background: var(--primary);
+      color: #0b0f19;
+      font-weight: 700;
+      border-color: var(--primary);
+    }
+
+    .fc-btn-primary:hover {
+      background: #7dd3fc;
+      color: #0b0f19;
+    }
+
+    .fc-progress-bar-container {
+      max-width: 720px;
+      margin: 15px auto 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .fc-progress-track {
+      flex: 1;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .fc-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-amber), var(--primary));
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .fc-counter-text {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* Floating Flashcard Button for Mobile */
+    .floating-fc-btn {
+      position: fixed;
+      bottom: 90px;
+      right: 25px;
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: #0b0f19;
+      font-weight: 700;
+      padding: 10px 16px;
+      border-radius: 30px;
+      box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 998;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+
+    .floating-fc-btn:hover {
+      transform: translateY(-3px) scale(1.03);
+    }
+
+    /* Chapter Section */
     .chapter-section {
       background: var(--bg-card);
       border: 1px solid var(--border-color);
       border-radius: 16px;
-      padding: 35px;
-      margin-bottom: 45px;
+      padding: clamp(20px, 4vw, 35px);
+      margin-bottom: 40px;
       box-shadow: var(--shadow-md);
       transition: border-color 0.3s;
     }
@@ -238,7 +602,7 @@
     .ch-header {
       border-bottom: 1px solid var(--border-color);
       padding-bottom: 20px;
-      margin-bottom: 30px;
+      margin-bottom: 25px;
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
@@ -249,7 +613,7 @@
     .ch-meta {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       margin-bottom: 8px;
     }
 
@@ -257,7 +621,7 @@
       background: var(--primary);
       color: #0b0f19;
       font-weight: 700;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       padding: 3px 10px;
       border-radius: 6px;
     }
@@ -265,13 +629,13 @@
     .ch-slides-badge {
       background: rgba(255, 255, 255, 0.1);
       color: var(--text-muted);
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       padding: 3px 10px;
       border-radius: 6px;
     }
 
     .ch-title {
-      font-size: 1.6rem;
+      font-size: clamp(1.3rem, 2.8vw, 1.6rem);
       font-weight: 700;
       color: #ffffff;
       margin-bottom: 6px;
@@ -279,11 +643,11 @@
 
     .ch-desc {
       color: var(--text-muted);
-      font-size: 0.95rem;
+      font-size: 0.92rem;
     }
 
     .ch-instructor {
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       color: var(--accent-amber);
       background: rgba(245, 158, 11, 0.1);
       padding: 6px 14px;
@@ -297,8 +661,8 @@
       background: rgba(11, 15, 25, 0.7);
       border: 1px solid var(--border-color);
       border-radius: 12px;
-      padding: 22px;
-      margin-bottom: 35px;
+      padding: clamp(16px, 3vw, 22px);
+      margin-bottom: 30px;
     }
 
     .acronym-title {
@@ -313,12 +677,15 @@
 
     .table-responsive {
       overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      border-radius: 8px;
     }
 
     table.data-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.88rem;
+      font-size: 0.86rem;
+      min-width: 600px;
     }
 
     table.data-table th {
@@ -350,6 +717,7 @@
       border-radius: 4px;
       border: 1px solid rgba(56, 189, 248, 0.3);
       display: inline-block;
+      white-space: nowrap;
     }
 
     /* Slide Section Card */
@@ -357,15 +725,15 @@
       background: rgba(21, 29, 48, 0.7);
       border: 1px solid var(--border-color);
       border-radius: 14px;
-      padding: 25px;
-      margin-bottom: 30px;
+      padding: clamp(16px, 3vw, 25px);
+      margin-bottom: 25px;
     }
 
     .group-title {
-      font-size: 1.25rem;
+      font-size: clamp(1.1rem, 2.2vw, 1.25rem);
       font-weight: 600;
       color: #38bdf8;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
       display: flex;
       align-items: center;
       gap: 10px;
@@ -376,9 +744,9 @@
     /* Slide Gallery */
     .slide-gallery {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 15px;
-      margin-bottom: 22px;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 12px;
+      margin-bottom: 20px;
     }
 
     .slide-thumb-box {
@@ -399,7 +767,7 @@
 
     .slide-thumb-box img {
       width: 100%;
-      height: 130px;
+      height: 115px;
       object-fit: cover;
       display: block;
       transition: transform 0.3s;
@@ -421,22 +789,22 @@
     }
 
     .slide-zoom-icon {
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       color: var(--primary);
     }
 
     /* Bullet List */
     .bullet-list {
       list-style-type: none;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
       padding-left: 5px;
     }
 
     .bullet-list > li {
       position: relative;
-      padding-left: 24px;
-      margin-bottom: 12px;
-      font-size: 0.95rem;
+      padding-left: 22px;
+      margin-bottom: 10px;
+      font-size: 0.93rem;
       color: #e2e8f0;
     }
 
@@ -450,15 +818,15 @@
     }
 
     .bullet-list > li.sub-bullet {
-      padding-left: 45px;
-      margin-bottom: 8px;
-      font-size: 0.9rem;
+      padding-left: 42px;
+      margin-bottom: 6px;
+      font-size: 0.88rem;
       color: var(--text-muted);
     }
 
     .bullet-list > li.sub-bullet::before {
       content: '•';
-      left: 30px;
+      left: 28px;
       color: var(--accent-green);
     }
 
@@ -474,7 +842,7 @@
 
     pre code {
       display: block;
-      padding: 16px;
+      padding: 14px;
       overflow-x: auto;
       line-height: 1.5;
       color: #f8fafc;
@@ -482,6 +850,7 @@
       border-radius: 8px;
       border: 1px solid var(--border-color);
       margin: 15px 0;
+      font-size: 0.85rem;
     }
 
     /* Supplementary In-Depth Box */
@@ -490,8 +859,8 @@
       border: 1px solid rgba(16, 185, 129, 0.3);
       border-left: 4px solid var(--accent-green);
       border-radius: 10px;
-      padding: 18px 22px;
-      font-size: 0.92rem;
+      padding: 16px 20px;
+      font-size: 0.9rem;
       color: #cbd5e1;
       margin-top: 15px;
       line-height: 1.65;
@@ -501,7 +870,7 @@
     .search-container {
       margin-bottom: 20px;
       display: flex;
-      gap: 12px;
+      gap: 10px;
     }
 
     .search-input {
@@ -509,10 +878,10 @@
       background: #0b0f19;
       border: 1px solid var(--border-color);
       border-radius: 8px;
-      padding: 12px 18px;
+      padding: 12px 16px;
       color: var(--text-main);
       font-family: 'Prompt', sans-serif;
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       outline: none;
       transition: border-color 0.2s;
     }
@@ -529,17 +898,18 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.9);
+      background: rgba(0, 0, 0, 0.92);
       backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
       z-index: 2000;
       justify-content: center;
       align-items: center;
-      padding: 20px;
+      padding: 15px;
     }
 
     .modal-content {
-      max-width: 92%;
-      max-height: 92%;
+      max-width: 95%;
+      max-height: 95%;
       position: relative;
       display: flex;
       flex-direction: column;
@@ -548,16 +918,17 @@
 
     .modal-img {
       max-width: 100%;
-      max-height: 82vh;
+      max-height: 80vh;
       border-radius: 8px;
       border: 2px solid var(--border-color);
       box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+      object-fit: contain;
     }
 
     .modal-caption {
       margin-top: 12px;
       color: var(--text-main);
-      font-size: 1rem;
+      font-size: 0.95rem;
       font-weight: 500;
       text-align: center;
     }
@@ -576,10 +947,10 @@
     /* Back to Top */
     .back-to-top {
       position: fixed;
-      bottom: 30px;
-      right: 30px;
-      width: 48px;
-      height: 48px;
+      bottom: 25px;
+      right: 25px;
+      width: 44px;
+      height: 44px;
       background: var(--primary);
       color: #0b0f19;
       border: none;
@@ -587,12 +958,12 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.4rem;
+      font-size: 1.3rem;
       font-weight: bold;
       cursor: pointer;
       box-shadow: var(--shadow-lg);
       transition: all 0.2s;
-      z-index: 999;
+      z-index: 997;
       text-decoration: none;
     }
 
@@ -603,18 +974,33 @@
 
     footer {
       border-top: 1px solid var(--border-color);
-      padding: 40px 20px;
+      padding: 35px 20px;
       text-align: center;
       color: var(--text-dim);
-      font-size: 0.85rem;
+      font-size: 0.82rem;
     }
 
+    /* Responsive Breakpoints */
     @media (max-width: 900px) {
       .nav-links { display: none; }
-      .hero-title { font-size: 1.6rem; }
-      .chapter-section { padding: 20px; }
-      .slide-gallery { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
-      .slide-thumb-box img { height: 95px; }
+      .mobile-menu-btn { display: block; }
+      .hero-stats { grid-template-columns: 1fr 1fr; }
+      .slide-gallery { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+      .slide-thumb-box img { height: 90px; }
+      .fc-controls { gap: 8px; }
+      .fc-btn { padding: 8px 14px; font-size: 0.88rem; }
+    }
+
+    @media (max-width: 480px) {
+      body { padding-top: 65px; }
+      .navbar { height: 65px; padding: 0 15px; }
+      .brand-title { font-size: 0.95rem; }
+      .hero-stats { grid-template-columns: 1fr; }
+      .fc-scene, .fc-card { min-height: 360px; }
+      .fc-tabs { gap: 5px; }
+      .fc-tab-btn { padding: 6px 12px; font-size: 0.8rem; }
+      .floating-fc-btn { bottom: 80px; right: 15px; padding: 8px 14px; font-size: 0.82rem; }
+      .back-to-top { bottom: 20px; right: 15px; width: 40px; height: 40px; }
     }
   </style>
 </head>
@@ -624,22 +1010,54 @@
   <nav class="navbar">
     <a href="#" class="nav-brand">
       <span class="brand-badge">COM3708</span>
-      <span class="brand-title">Internet of Things (IoT)</span>
+      <span class="brand-title">IoT Course Summary</span>
     </a>
+
     <div class="nav-links">
-      <a href="#master-glossary" class="nav-link nav-quick-btn">📖 รวมคำย่อทั้งหมด</a>
+      <a href="#flashcards-section" class="nav-link nav-flashcard-btn">🃏 แฟลชการ์ดทบทวน</a>
+      <a href="#master-glossary" class="nav-link nav-quick-btn">📖 คำย่อทั้งหมด</a>
       <a href="#master-sensors" class="nav-link nav-quick-btn">🔬 รวมเซ็นเซอร์</a>
-      <a href="#ch01" class="nav-link">บทที่ 01</a>
-      <a href="#ch02" class="nav-link">บทที่ 02</a>
-      <a href="#ch03" class="nav-link">บทที่ 03</a>
-      <a href="#ch05" class="nav-link">บทที่ 05</a>
-      <a href="#ch06" class="nav-link">บทที่ 06</a>
-      <a href="#ch07" class="nav-link">บทที่ 07</a>
-      <a href="#ch08" class="nav-link">บทที่ 08</a>
-      <a href="#ch09" class="nav-link">บทที่ 09</a>
-      <a href="#ch10" class="nav-link">บทที่ 10</a>
+      <a href="#ch01" class="nav-link">บท 01</a>
+      <a href="#ch02" class="nav-link">บท 02</a>
+      <a href="#ch03" class="nav-link">บท 03</a>
+      <a href="#ch05" class="nav-link">บท 05</a>
+      <a href="#ch06" class="nav-link">บท 06</a>
+      <a href="#ch07" class="nav-link">บท 07</a>
+      <a href="#ch08" class="nav-link">บท 08</a>
+      <a href="#ch09" class="nav-link">บท 09</a>
+      <a href="#ch10" class="nav-link">บท 10</a>
     </div>
+
+    <!-- Mobile Hamburger Button -->
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle menu">☰ เมนู</button>
   </nav>
+
+  <!-- Mobile Drawer Menu -->
+  <div id="mobileDrawer" class="mobile-drawer">
+    <a href="#flashcards-section" class="drawer-link" style="color: #fbbf24; border-color: rgba(245, 158, 11, 0.4);" onclick="toggleMobileMenu()">
+      <span>🃏 โหมดแฟลชการ์ดทบทวน</span> <span>➔</span>
+    </a>
+    <a href="#master-glossary" class="drawer-link" onclick="toggleMobileMenu()">
+      <span>📖 พจนานุกรมคำย่อและคำเต็ม</span> <span>➔</span>
+    </a>
+    <a href="#master-sensors" class="drawer-link" onclick="toggleMobileMenu()">
+      <span>🔬 ตารางรวมเซ็นเซอร์และโมดูล</span> <span>➔</span>
+    </a>
+    <a href="#ch01" class="drawer-link" onclick="toggleMobileMenu()"><span>บทที่ 01: Introduction to IoT</span> <span>➔</span></a>
+    <a href="#ch02" class="drawer-link" onclick="toggleMobileMenu()"><span>บทที่ 02: KidBright Simulator</span> <span>➔</span></a>
+    <a href="#ch03" class="drawer-link" onclick="toggleMobileMenu()"><span>บทที่ 03: KB IDE & Ultrasonic</span> <span>➔</span></a>
+    <a href="#ch05" class="drawer-link" onclick="toggleMobileMenu()"><span>บทที่ 05: IoT with Blynk</span> <span>➔</span></a>
+    <a href="#ch06" class="drawer-link" onclick="toggleMobileMenu()"><span>บทที่ 06: Basic Electronics</span> <span>➔</span></a>
+    <a href="#ch07" class="drawer-link" onclick="toggleMobileMenu()"><span>บทที่ 07: NodeMCU ESP8266</span> <span>➔</span></a>
+    <a href="#ch08" class="drawer-link" onclick="toggleMobileMenu()"><span>บทที่ 08: Digital & Analog I/O</span> <span>➔</span></a>
+    <a href="#ch09" class="drawer-link" onclick="toggleMobileMenu()"><span>บทที่ 09: Sensors & Relay</span> <span>➔</span></a>
+    <a href="#ch10" class="drawer-link" onclick="toggleMobileMenu()"><span>บทที่ 10: MQTT & HiveMQ Cloud</span> <span>➔</span></a>
+  </div>
+
+  <!-- Floating Shortcut Button for Mobile -->
+  <a href="#flashcards-section" class="floating-fc-btn">
+    <span>🃏</span> <span>เปิดแฟลชการ์ด</span>
+  </a>
 
   <div class="container">
 
@@ -648,11 +1066,12 @@
       <div class="hero-tags">
         <span class="tag tag-blue">วิชา COM3708</span>
         <span class="tag tag-green">ผศ.ประธาน คำจินะ</span>
-        <span class="tag tag-purple">สรุปเนื้อหา 9 บทเรียนครบ 100%</span>
+        <span class="tag tag-purple">สรุป 9 บท ครบ 238 สไลด์</span>
+        <span class="tag tag-amber">✨ เพิ่มระบบแฟลชการ์ด</span>
       </div>
       <h1 class="hero-title">ระบบอินเทอร์เน็ตของสรรพสิ่ง (Internet of Things: IoT)</h1>
       <p class="hero-subtitle">
-        คู่มือสรุปเนื้อหาฉบับสมบูรณ์ จัดทำเป็น <strong>Bullet Points</strong> พร้อมภาพประกอบตรงตามสไลด์การสอนครบทั้ง <strong>238 สไลด์</strong> อธิบายเสริมเนื้อหาทางวิศวกรรม วงจร ฟิสิกส์ และโค้ดโปรแกรมในทุกสไลด์ที่ไม่มีคำอธิบาย พร้อมรวบรวมคำย่อ คำเต็ม และความหมายภาษาไทยทุกบทอย่างครบถ้วน
+        เว็บแอปพลิเคชันสรุปบทเรียนและเครื่องมือช่วยจำ จัดทำในรูปแบบ <strong>Bullet Points</strong> พร้อมภาพประกอบสไลด์ต้นฉบับ <strong>238 สไลด์</strong> อธิบายเสริมละเอียดทุกภาพและวงจรที่ไม่มีคำอธิบาย พร้อมระบบ <strong>แฟลชการ์ด 3D พลิกดูคำตอบ</strong> สำหรับทบทวนเนื้อหาบทเรียน เซ็นเซอร์ และคำย่อ
       </p>
       
       <div class="hero-stats">
@@ -660,32 +1079,114 @@
           <div class="stat-icon">📚</div>
           <div>
             <div class="stat-val">9 บทเรียน</div>
-            <div class="stat-label">ครอบคลุมทุกบทเรียนในคอร์ส</div>
+            <div class="stat-label">ครอบคลุมทุกบทเรียน</div>
           </div>
         </div>
         <div class="stat-card">
           <div class="stat-icon">🖼️</div>
           <div>
             <div class="stat-val">238 สไลด์</div>
-            <div class="stat-label">ภาพสไลด์คมชัด คลิกขยายดูได้</div>
+            <div class="stat-label">ภาพสไลด์คมชัด คลิกขยายได้</div>
           </div>
         </div>
         <div class="stat-card">
-          <div class="stat-icon">🔤</div>
+          <div class="stat-icon">🃏</div>
           <div>
-            <div class="stat-val">50+ คำย่อ</div>
-            <div class="stat-label">บอกคำเต็มและคำแปลทุกบท</div>
+            <div class="stat-val">50+ แฟลชการ์ด</div>
+            <div class="stat-label">ทบทวนเนื้อหา เซ็นเซอร์ คำย่อ</div>
           </div>
         </div>
         <div class="stat-card">
-          <div class="stat-icon">⚡</div>
+          <div class="stat-icon">📱</div>
           <div>
-            <div class="stat-val">100% ครบ</div>
-            <div class="stat-label">ไม่ตัดเนื้อหา พร้อมเฉลยทุก Lab</div>
+            <div class="stat-val">ทุกอุปกรณ์</div>
+            <div class="stat-label">มือถือ แท็บเล็ต คอมพิวเตอร์</div>
           </div>
         </div>
       </div>
     </header>
+
+    <!-- ========================================================
+         FLASHCARDS INTERACTIVE SECTION
+         ======================================================== -->
+    <section id="flashcards-section" class="flashcards-container">
+      <div class="fc-header">
+        <div class="fc-title-group">
+          <h2><span>🃏</span> ระบบแฟลชการ์ดทบทวนความรู้ (Interactive Flashcards)</h2>
+          <p>แตะหรือคลิกที่การ์ดเพื่อพลิกดูคำตอบ (ใช้ปุ่มลูกศรซ้าย/ขวา และ Spacebar บนคีย์บอร์ดได้)</p>
+        </div>
+      </div>
+
+      <!-- Category Filter Tabs -->
+      <div class="fc-tabs">
+        <button class="fc-tab-btn active" onclick="setFlashcardCategory('all', this)">🌟 ทั้งหมด (<span id="countAll">0</span>)</button>
+        <button class="fc-tab-btn" onclick="setFlashcardCategory('chapter', this)">📖 สรุปเนื้อหาบทเรียน (<span id="countChapter">0</span>)</button>
+        <button class="fc-tab-btn" onclick="setFlashcardCategory('sensor', this)">🔬 เซ็นเซอร์และอุปกรณ์ (<span id="countSensor">0</span>)</button>
+        <button class="fc-tab-btn" onclick="setFlashcardCategory('acronym', this)">🔤 คำย่อและคำเต็ม (<span id="countAcronym">0</span>)</button>
+        
+        <select id="fcChapterFilter" class="fc-select-filter" onchange="filterFlashcardsByChapter()">
+          <option value="all">📂 กรองทุกบทเรียน</option>
+          <option value="บทที่ 01">บทที่ 01: Intro to IoT</option>
+          <option value="บทที่ 02">บทที่ 02: KidBright Simulator</option>
+          <option value="บทที่ 03">บทที่ 03: KB IDE & Ultrasonic</option>
+          <option value="บทที่ 05">บทที่ 05: IoT with Blynk</option>
+          <option value="บทที่ 06">บทที่ 06: Basic Electronics</option>
+          <option value="บทที่ 07">บทที่ 07: NodeMCU ESP8266</option>
+          <option value="บทที่ 08">บทที่ 08: Digital & Analog I/O</option>
+          <option value="บทที่ 09">บทที่ 09: Sensors & Relay</option>
+          <option value="บทที่ 10">บทที่ 10: MQTT & HiveMQ</option>
+        </select>
+      </div>
+
+      <!-- 3D Card Stage -->
+      <div class="fc-scene" onclick="flipCard()">
+        <div id="flashcardElement" class="fc-card">
+          <!-- Card Front -->
+          <div class="fc-card-face fc-front">
+            <div class="fc-card-top">
+              <span id="fcBadgeFront" class="fc-badge badge-chapter">บทเรียน</span>
+              <span style="font-size: 0.8rem; color: var(--text-muted);">คำถาม / คำศัพท์</span>
+            </div>
+            <div class="fc-card-body">
+              <div id="fcQuestionText" class="fc-question">กำลังโหลดการ์ด...</div>
+            </div>
+            <div class="fc-hint-footer">
+              <span>👆</span> <span>แตะหรือคลิกที่การ์ดเพื่อดูคำตอบ (หรือกด Space)</span>
+            </div>
+          </div>
+
+          <!-- Card Back -->
+          <div class="fc-card-face fc-back">
+            <div class="fc-card-top">
+              <span id="fcBadgeBack" class="fc-badge badge-sensor">คำตอบ / คำอธิบาย</span>
+              <span style="font-size: 0.8rem; color: var(--accent-green);">✓ เฉลยละเอียด</span>
+            </div>
+            <div class="fc-card-body">
+              <div id="fcAnswerText" class="fc-answer">กำลังโหลดคำอธิบาย...</div>
+            </div>
+            <div class="fc-hint-footer">
+              <span>👆</span> <span>แตะเพื่อพลิกกลับด้านหน้า</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Controls -->
+      <div class="fc-controls">
+        <button class="fc-btn" onclick="prevCard()" title="การ์ดก่อนหน้า (ลูกศรซ้าย)">⬅️ ก่อนหน้า</button>
+        <button class="fc-btn fc-btn-primary" onclick="flipCard()" title="พลิกการ์ด (Spacebar)">🔄 พลิกการ์ด (Flip)</button>
+        <button class="fc-btn" onclick="nextCard()" title="การ์ดถัดไป (ลูกศรขวา)">ถัดไป ➡️</button>
+        <button class="fc-btn" onclick="shuffleCards()" title="สุ่มการ์ด">🔀 สุ่มการ์ด</button>
+      </div>
+
+      <!-- Progress Track & Counter -->
+      <div class="fc-progress-bar-container">
+        <div class="fc-progress-track">
+          <div id="fcProgressBar" class="fc-progress-fill"></div>
+        </div>
+        <div id="fcCounter" class="fc-counter-text">1 / 50</div>
+      </div>
+    </section>
 
     <!-- Master Glossary Section -->
     <section id="master-glossary" class="chapter-section" style="border-left: 4px solid var(--primary);">
@@ -5288,11 +5789,142 @@
   <a href="#" class="back-to-top" title="กลับขึ้นด้านบน">↑</a>
 
   <footer>
-    <p>COM3708 Internet of Things (IoT) Course Summary Website | ผศ.ประธาน คำจินะ</p>
-    <p style="margin-top: 8px;">จัดทำสรุปครบทุกบท 238 สไลด์ พร้อมภาพประกอบ คำย่อ คำเต็ม และคำอธิบายเสริมทางวิศวกรรม</p>
+    <p>COM3708 Internet of Things (IoT) Course Summary & Flashcards Website | ผศ.ประธาน คำจินะ</p>
+    <p style="margin-top: 8px;">จัดทำสรุปครบทุกบท 238 สไลด์ พร้อมระบบแฟลชการ์ด ภาพประกอบ คำย่อ คำเต็ม และคำอธิบายเสริมทางวิศวกรรม</p>
   </footer>
 
   <script>
+    // Embedded Flashcards Dataset
+    const rawFlashcards = [{"id": "fc_ch01_1", "category": "chapter", "ch": "บทที่ 01", "front": "นิยามของ Internet of Things (IoT) คืออะไร และมีเป้าหมายหลักเพื่ออะไร?", "back": "<strong>Internet of Things (IoT)</strong> คือ เครือข่ายของสิ่งของหรืออุปกรณ์อิเล็กทรอนิกส์ที่มีการฝังเซ็นเซอร์ ตัวประมวลผล และโมดูลเครือข่าย เพื่อให้สามารถเก็บรวบรวมและส่งผ่านข้อมูลถึงกันได้ด้วยเครือข่ายอินเทอร์เน็ตโดยอัตโนมัติ โดยที่มนุษย์ไม่ต้องคอยป้อนข้อมูล (Machine-to-Machine: M2M)<br><br>💡 <em>เป้าหมาย</em>: เพิ่มความสะดวกสบาย ปลอดภัย ลดพลังงาน และนำข้อมูลไปวิเคราะห์พยากรณ์ล่วงหน้า (Predictive Analytics)", "badge": "บทที่ 01"}, {"id": "fc_ch01_2", "category": "chapter", "ch": "บทที่ 01", "front": "สถาปัตยกรรม 3 ชั้นของระบบ IoT ประกอบด้วยอะไรบ้าง?", "back": "1. <strong>End Nodes (Edge Devices / ปลายทาง)</strong>: เซ็นเซอร์ (รับข้อมูล) และ แอคชูเอเตอร์ (ขับโหลด) ควบคุมโดย MCU<br>2. <strong>Connectivity (ระบบเชื่อมต่อ)</strong>: ช่องทางสื่อสารทั้งแบบมีสายและไร้สาย (Wi-Fi, BLE, 4G/5G, LoRaWAN)<br>3. <strong>Central Servers / Cloud (ศูนย์กลาง)</strong>: รวบรวมข้อมูล วิเคราะห์ จัดเก็บฐานข้อมูล และแสดงผล Dashboard", "badge": "บทที่ 01"}, {"id": "fc_ch01_3", "category": "chapter", "ch": "บทที่ 01", "front": "สมาร์ตโฟน และ เครื่องซักผ้าธรรมดาแบบปุ่มหมุน จัดเป็นอุปกรณ์ IoT หรือไม่? เพราะเหตุใด?", "back": "• <strong>สมาร์ตโฟน</strong>: ทำหน้าที่เป็นทั้ง Gateway, Controller และ Sensor Platform แต่ในนิยามดั้งเดิมจัดเป็นอุปกรณ์ Personal Computing ที่ต้องมีมนุษย์ป้อนข้อมูล (Human-in-the-loop) ต่างจาก Pure IoT ที่ส่งข้อมูลแบบ M2M อัตโนมัติ<br>• <strong>เครื่องซักผ้าปุ่มหมุน</strong>: <em>ไม่เป็น IoT</em> เพราะเป็นกลไกแอนะล็อกดั้งเดิม ไม่มีการเชื่อมต่อเครือข่าย (แต่ถ้าติด Smart Plug วัดกระแสไฟแจ้งเตือนเข้ามือถือ จะเป็น IoT ได้)", "badge": "บทที่ 01"}, {"id": "fc_ch01_4", "category": "chapter", "ch": "บทที่ 01", "front": "บอร์ดประมวลผล IoT แบ่งออกเป็น 2 กลุ่มใหญ่ คืออะไร และต่างกันอย่างไร?", "back": "1. <strong>Microcontroller (MCU)</strong>: บอร์ดขนาดเล็ก ราคาถูก กินไฟต่ำ ไม่มี OS ทำงานเฉพาะทาง เช่น Arduino, ESP8266, ESP32, KidBright<br>2. <strong>Single-Board Computer (SBC)</strong>: คอมพิวเตอร์ขนาดเล็ก สเปกสูง มี CPU หลายคอร์ RAM สูง ติดตั้ง OS ตัวเต็มได้ (Linux) รองรับงาน AI / กล้อง เช่น Raspberry Pi", "badge": "บทที่ 01"}, {"id": "fc_ch02_1", "category": "chapter", "ch": "บทที่ 02", "front": "KidBright Simulator คืออะไร และมีประโยชน์อย่างไรต่อนักพัฒนา IoT?", "back": "<strong>KidBright Simulator</strong> คือ โปรแกรมจำลองการทำงานของบอร์ด KidBright เสมือนจริงบนคอมพิวเตอร์<br><br>💡 <em>ประโยชน์</em>:<br>• ช่วยให้นักศึกษาฝึกเขียนโปรแกรมบล็อก (Block-based Programming) และทดสอบตรรกะได้โดยไม่ต้องมีฮาร์ดแวร์จริง<br>• ป้องกันความเสียหายจากการต่อวงจรช็อตหรือผิดพลาด<br>• มีเซ็นเซอร์จำลองครบกว่า 17 ชนิดและอุปกรณ์ขับเคลื่อน", "badge": "บทที่ 02"}, {"id": "fc_ch02_2", "category": "chapter", "ch": "บทที่ 02", "front": "แถบเครื่องมือบล็อกคำสั่งทั้ง 9 หมวด (Tabs) ของ KidBright มีอะไรบ้าง?", "back": "1. <strong>Basic</strong>: แสดงผลตัวอักษร/ไอคอนบนจอ LED 16x8, เคลียร์หน้าจอ, หน่วงเวลา<br>2. <strong>Math</strong>: คำนวณ บวกลบคูณหาร สุ่มตัวเลข (Random)<br>3. <strong>Logic</strong>: ตรรกะเงื่อนไข if/else, ตัวเปรียบเทียบ, and/or/not<br>4. <strong>Loop</strong>: วนซ้ำตามรอบ ลูปไม่รู้จบ (Forever loop)<br>5. <strong>Wait</strong>: หยุดรอจนกว่าจะมีเหตุการณ์เกิดขึ้นตามเงื่อนไข<br>6. <strong>Music</strong>: เสียงโน้ตดนตรี C D E F G A B ผ่านลำโพง Buzzer<br>7. <strong>Sensor</strong>: อ่านค่าเซ็นเซอร์แสง/อุณหภูมิ และเซ็นเซอร์ภายนอก<br>8. <strong>Clock</strong>: อ่านเวลาจริงจาก Real-Time Clock (RTC)<br>9. <strong>I/O</strong>: อ่านขา Input, สั่งขา Output, ควบคุมไฟพอร์ต USB 5V", "badge": "บทที่ 02"}, {"id": "fc_ch03_1", "category": "chapter", "ch": "บทที่ 03", "front": "จงอธิบายหลักการทำงานของเซ็นเซอร์ Ultrasonic (HC-SR04) และเขียนสูตรคำนวณระยะทาง", "back": "<strong>หลักการทำงาน</strong>:<br>1. บอร์ดส่งพัลส์ HIGH ไปที่ขา <code>Trig</code> กว้างอย่างน้อย 10 ไมโครวินาที ($10\\,\\mu\\text{s}$)<br>2. ตัวส่งยิงคลื่นเสียงความถี่สูง <strong>40 kHz</strong> จำนวน 8 ลูกออกไปกระทบวัตถุ<br>3. คลื่นสะท้อนกลับมาถึงตัวรับ ขา <code>Echo</code> จะส่งพัลส์ HIGH โดยความยาวเวลาพัลส์เท่ากับเวลาที่คลื่นเดินทางไป-กลับ<br><br>📐 <strong>สูตรคำนวณ</strong>:<br>$$\\text{Distance (cm)} = \\frac{\\text{Time } (\\mu\\text{s}) \\times 0.0343}{2} = \\frac{\\text{Time } (\\mu\\text{s})}{58.3}$$<br><em>(เสียงเดินทางในอากาศเร็วประมาณ 343 m/s และต้องหาร 2 เพราะคลื่นเดินทางไป-กลับ)</em>", "badge": "บทที่ 03"}, {"id": "fc_ch03_2", "category": "chapter", "ch": "บทที่ 03", "front": "การต่อขาเซ็นเซอร์ Ultrasonic เข้ากับบอร์ด KidBright ทำอย่างไร?", "back": "• <strong>VCC</strong> $\\rightarrow$ ต่อไฟเลี้ยง <strong>3V3</strong> (หรือ 5V)<br>• <strong>GND</strong> $\\rightarrow$ ต่อ <strong>GND</strong><br>• <strong>Trig</strong> $\\rightarrow$ ต่อขา <strong>IO19</strong> (Digital Output สั่งยิงคลื่น)<br>• <strong>Echo</strong> $\\rightarrow$ ต่อขา <strong>IO18</strong> (Digital Input จับเวลาพัลส์สะท้อน)", "badge": "บทที่ 03"}, {"id": "fc_ch05_1", "category": "chapter", "ch": "บทที่ 05", "front": "ข้อมูลกุญแจสำคัญ 3 ค่า (Credentials) ในการเชื่อมต่อบอร์ดกับ Blynk Cloud คืออะไรบ้าง?", "back": "1. <strong>BLYNK_TEMPLATE_ID</strong>: รหัสระบุแม่แบบของอุปกรณ์บนระบบคลาวด์ (เช่น <code>TMPLxxxxxx</code>)<br>2. <strong>BLYNK_DEVICE_NAME</strong>: ชื่ออุปกรณ์ที่ตั้งไว้สำหรับแสดงผล<br>3. <strong>BLYNK_AUTH_TOKEN</strong>: รหัสโทเคนลับยาว 32 ตัวอักษร ใช้เป็นกุญแจตรวจสอบสิทธิ์ในการเชื่อมต่อระหว่างบอร์ดกับคลาวด์ ห้ามเปิดเผยต่อสาธารณะ", "badge": "บทที่ 05"}, {"id": "fc_ch05_2", "category": "chapter", "ch": "บทที่ 05", "front": "Virtual Pin (V-Pin) ในระบบ Blynk คืออะไร และมีประโยชน์อย่างไร?", "back": "<strong>Virtual Pin</strong> คือ ขาหรือพอร์ตเสมือนในซอฟต์แวร์ (เช่น V0, V1, V2)<br><br>💡 <em>ประโยชน์</em>:<br>• ใช้แลกเปลี่ยนข้อมูลระหว่าง Widget บนแอปกับโปรแกรมบนบอร์ด โดยไม่ต้องผูกกับขาฮาร์ดแวร์จริง<br>• สามารถส่งข้อมูลชนิดใดก็ได้ เช่น ตัวเลขจำนวนเต็ม ทศนิยม ข้อความ สตริง หรืออาร์เรย์<br>• ปรับเปลี่ยนตรรกะได้ยืดหยุ่นโดยไม่ต้องรื้อสายวงจรใหม่", "badge": "บทที่ 05"}, {"id": "fc_ch05_3", "category": "chapter", "ch": "บทที่ 05", "front": "เฉลยโจทย์: หากต้องการทำปุ่มเปิด-ปิดไฟพอร์ต USB บนบอร์ด KidBright ด้วย Blynk ต้องทำอย่างไร?", "back": "1. <strong>ฝั่ง Blynk Cloud/App</strong>: สร้าง Datastream ประเภท Virtual Pin ชื่อ <code>V0</code> (Integer 0-1) และวาง Widget Button โหมด Switch<br>2. <strong>ฝั่ง KidBright</strong>: เสียบอุปกรณ์ USB เข้าช่อง USB 5V<br>3. <strong>ฝั่งโค้ด KB IDE</strong>: รับค่าจาก V0 ถ้าได้ <code>1</code> ให้สั่ง <code>Set USB Output ON</code> ถ้าได้ <code>0</code> ให้สั่ง <code>Set USB Output OFF</code>", "badge": "บทที่ 05"}, {"id": "fc_ch06_1", "category": "chapter", "ch": "บทที่ 06", "front": "จงเขียนกฎของโอห์ม (Ohm's Law) และอธิบายความหมายของตัวแปรแต่ละตัว", "back": "📐 <strong>สมการกฎของโอห์ม</strong>:<br>$$V = I \\times R \\quad \\left(I = \\frac{V}{R}, \\quad R = \\frac{V}{I}\\right)$$<br>• <strong>V (Voltage)</strong>: แรงดันไฟฟ้า มีหน่วยเป็น โวลต์ (Volt: V)<br>• <strong>I (Current)</strong>: กระแสไฟฟ้า มีหน่วยเป็น แอมแปร์ (Ampere: A)<br>• <strong>R (Resistance)</strong>: ความต้านทานไฟฟ้า มีหน่วยเป็น โอห์ม (Ohm: $\\Omega$)", "badge": "บทที่ 06"}, {"id": "fc_ch06_2", "category": "chapter", "ch": "บทที่ 06", "front": "จงคำนวณหาค่าตัวต้านทาน (R) สำหรับหลอดไฟ LED ที่ใช้กับแหล่งจ่ายไฟ 12VDC (LED ต้องการ 3VDC, 20mA)", "back": "📐 <strong>วิธีคำนวณ</strong>:<br>1. แรงดันตกคร่อมตัวต้านทาน $V_R = V_{\\text{supply}} - V_{\\text{LED}} = 12\\text{V} - 3\\text{V} = 9\\,\\text{V}$<br>2. แปลงกระแส $I = 20\\,\\text{mA} = 0.02\\,\\text{A}$<br>3. คำนวณค่า $R$ ตามกฎของโอห์ม:<br>$$R = \\frac{9\\,\\text{V}}{0.02\\,\\text{A}} = \\mathbf{450\\,\\Omega}$$<br><em>(ในทางปฏิบัติใช้ค่ามาตรฐาน $470\\,\\Omega$ ทนกำลัง $1/4\\,\\text{W}$)</em>", "badge": "บทที่ 06"}, {"id": "fc_ch06_3", "category": "chapter", "ch": "บทที่ 06", "front": "การต่อเซลล์ไฟฟ้าแบบ 'อนุกรม' กับ 'ขนาน' ให้ผลลัพธ์ทางไฟฟ้าแตกต่างกันอย่างไร?", "back": "• <strong>ต่ออนุกรม (Series - บวกต่อลบ)</strong>:<br>  - <strong>แรงดันบวกกัน</strong>: $V_{\\text{รวม}} = V_1 + V_2 + \\dots$<br>  - <strong>ความจุเท่าเดิม</strong>: $Ah_{\\text{รวม}} = Ah$<br><br>• <strong>ต่อขนาน (Parallel - บวกต่อบวก ลบต่อลบ)</strong>:<br>  - <strong>แรงดันเท่าเดิม</strong>: $V_{\\text{รวม}} = V$<br>  - <strong>ความจุบวกกัน</strong>: $Ah_{\\text{รวม}} = Ah_1 + Ah_2 + \\dots$ ใช้งานได้นานขึ้น", "badge": "บทที่ 06"}, {"id": "fc_ch06_4", "category": "chapter", "ch": "บทที่ 06", "front": "เฉลยแบบฝึกหัด: แบตเตอรี่รถไฟฟ้า 48V ต้องใช้แบตเตอรี่ 12V 8Ah กี่ก้อน และต่ออย่างไร?", "back": "• <strong>จำนวนก้อน</strong>: $\\frac{48\\,\\text{V}}{12\\,\\text{V}} = \\mathbf{4\\,\\text{ก้อน}}$<br>• <strong>วิธีการต่อ</strong>: ต่อแบบ <strong>'อนุกรม' (Series)</strong> โดยนำขั้วบวกของก้อนแรกต่อขั้วลบของก้อนถัดไปเรียงกันจนครบ 4 ก้อน<br>• <strong>ผลลัพธ์</strong>: จะได้แรงดันรวม $12\\text{V} \\times 4 = \\mathbf{48\\,\\text{V}}$ พอดีกับมอเตอร์ โดยมีความจุคงที่อยู่ที่ $\\mathbf{8\\,\\text{Ah}}$", "badge": "บทที่ 06"}, {"id": "fc_ch06_5", "category": "chapter", "ch": "บทที่ 06", "front": "ตัวเก็บประจุ 3 ชนิดที่พบบ่อย (Electrolytic, Ceramic, Mylar) มีจุดเด่นต่างกันอย่างไร?", "back": "1. <strong>อิเล็กโทรไลติก (Electrolytic)</strong>: ทรงกระบอก มีขั้วบวก/ลบชัดเจน ความจุสูง ($>1\\,\\mu\\text{F}$) ห้ามต่อสลับขั้วเด็ดขาด<br>2. <strong>เซรามิก (Ceramic)</strong>: ทรงกลมแบน ไม่มีขั้ว ทนแรงดัน 50-100V ความจุต่ำ ($<1\\,\\mu\\text{F}$) กรองความถี่สูง<br>3. <strong>ไมลาร์ (Mylar)</strong>: ทรงหยดน้ำ/เหลี่ยม ทนความชื้นและแรงดันสูงถึง 350V ความจุ $>1\\,\\mu\\text{F}$ วงจร RF และแรงดันสูง", "badge": "บทที่ 06"}, {"id": "fc_ch07_1", "category": "chapter", "ch": "บทที่ 07", "front": "ทำไมในโปรแกรม Blink ของบอร์ด NodeMCU สั่ง LOW หลอด LED ถึงติด และสั่ง HIGH ถึงดับ?", "back": "เพราะวงจรหลอด LED บนบอร์ด NodeMCU ต่อในรูปแบบ <strong>Active-LOW</strong>:<br>• ขาแอโนด (+) ของ LED ต่อค้างไว้กับไฟบวก 3.3V ตลอดเวลา<br>• เมื่อโค้ดสั่ง <code>digitalWrite(LED, LOW)</code> ขาชิปจะปล่อยไฟ 0V (กราวด์) ทำให้เกิดความต่างศักย์ กระแสจึงไหลผ่านหลอด $\\rightarrow$ <strong>LED ติดสว่าง</strong><br>• เมื่อสั่ง <code>digitalWrite(LED, HIGH)</code> ขาชิปปล่อยไฟ 3.3V เท่ากับไฟเลี้ยง ไม่มีกระแสไหล $\\rightarrow$ <strong>LED ดับ</strong>", "badge": "บทที่ 07"}, {"id": "fc_ch07_2", "category": "chapter", "ch": "บทที่ 07", "front": "ลิงก์ Additional Boards Manager URLs สำหรับติดตั้งบอร์ด ESP8266 ใน Arduino IDE คืออะไร?", "back": "<code>http://arduino.esp8266.com/stable/package_esp8266com_index.json</code><br><br>💡 นำไปใส่ในเมนู <strong>File $\\rightarrow$ Preferences</strong> แล้วเข้าไปที่ <strong>Tools $\\rightarrow$ Board $\\rightarrow$ Boards Manager</strong> ค้นหา <code>esp8266</code> เพื่อติดตั้งบอร์ด NodeMCU", "badge": "บทที่ 07"}, {"id": "fc_ch08_1", "category": "chapter", "ch": "บทที่ 08", "front": "โครงสร้างหลัก 2 ส่วนของโปรแกรม Arduino คืออะไร และทำงานแตกต่างกันอย่างไร?", "back": "1. <strong>void setup()</strong>: ทำงานเพียง <em>ครั้งแรก ครั้งเดียว</em> เมื่อเปิดเครื่องหรือกดปุ่มรีเซ็ต ใช้สำหรับตั้งค่าโหมดของขาพอร์ต (<code>pinMode</code>) และเริ่มการสื่อสาร (<code>Serial.begin</code>)<br>2. <strong>void loop()</strong>: ทำงาน <em>วนซ้ำต่อเนื่องไปเรื่อย ๆ ไม่รู้จบ</em> ตราบใดที่ยังมีไฟเลี้ยงบอร์ด เป็นที่บรรจุตรรกะหลักของโปรแกรม", "badge": "บทที่ 08"}, {"id": "fc_ch08_2", "category": "chapter", "ch": "บทที่ 08", "front": "ปัญหา 'สภาวะขาลอย' (Floating State) ของสวิตช์คืออะไร และแก้ไขได้อย่างไร?", "back": "<strong>ปัญหาขาลอย</strong> เกิดจากเมื่อเรายังไม่กดสวิตช์ ขาพินอินพุตจะลอยอยู่กลางอากาศ ทำหน้าที่เหมือนเสาอากาศรับคลื่นรบกวนแม่เหล็กไฟฟ้า ทำให้ค่าที่อ่านได้แกว่งมั่วระหว่าง 0 กับ 1<br><br>💡 <strong>วิธีแก้ไข</strong>: ต่อตัวต้านทานค่าสูง (เช่น 10 k$\\Omega$) เป็นวงจร <strong>Pull-Up</strong> (ดึงขึ้น VCC) หรือ <strong>Pull-Down</strong> (ดึงลง GND) หรือใช้คำสั่งเปิดโหมดภายในชิป <code>pinMode(pin, INPUT_PULLUP);</code>", "badge": "บทที่ 08"}, {"id": "fc_ch08_3", "category": "chapter", "ch": "บทที่ 08", "front": "วงจรแปลงสัญญาณแอนะล็อกเป็นดิจิทัล (ADC) 10 บิต ให้ค่าตัวเลขช่วงใด และคำนวณอย่างไร?", "back": "ให้ค่าตัวเลขจำนวนเต็มตั้งแต่ <strong>0 ถึง 1023</strong><br>คำนวณจากระดับความละเอียด $2^{10} = 1024$ ระดับ โดยที่:<br>• ค่า 0 แทนแรงดัน 0V (GND)<br>• ค่า 1023 แทนแรงดันอ้างอิงสูงสุด (เช่น 3.3V หรือ 5V)<br>• แรงดันจริง: $V = \\frac{\\text{ADC}}{1023} \\times 3.3\\text{V}$", "badge": "บทที่ 08"}, {"id": "fc_ch08_4", "category": "chapter", "ch": "บทที่ 08", "front": "หลักการของ PWM (Pulse Width Modulation) คืออะไร และนำไปใช้อย่างไรใน IoT?", "back": "<strong>PWM</strong> คือการเปิด-ปิดสัญญาณดิจิทัลสลับกันอย่างรวดเร็ว (ความถี่สูง) และปรับสัดส่วนช่วงเวลาเปิด (Duty Cycle) เพื่อจำลองระดับแรงดันเฉลี่ยแอนะล็อก<br><br>💡 <em>การใช้งาน</em>:<br>• หรี่-เร่งความสว่างของหลอดไฟ LED<br>• ควบคุมความเร็วรอบของมอเตอร์กระแสตรง (DC Motor)<br>• สั่งงานองศาของเซอร์โวมอเตอร์ (Servo Motor)", "badge": "บทที่ 08"}, {"id": "fc_ch09_1", "category": "chapter", "ch": "บทที่ 09", "front": "ขั้วต่อหน้าสัมผัส 3 ขั้วของรีเลย์ (Relay) คืออะไรบ้าง และต่างกันอย่างไร?", "back": "1. <strong>COM (Common)</strong>: ขั้วแกนกลาง เป็นจุดต่อสายไฟร่วม<br>2. <strong>NO (Normally Open - ปกติเปิด)</strong>: สภาวะปกติวงจรเปิด (ไฟไม่ผ่าน) เมื่อรีเลย์ทำงานหน้าสัมผัสจะดูดติดกับ COM ไฟจึงจะไหลผ่าน (นิยมใช้คุมปั๊มน้ำ/หลอดไฟเพื่อความปลอดภัยแบบ Fail-safe)<br>3. <strong>NC (Normally Closed - ปกติปิด)</strong>: สภาวะปกติวงจรปิด (ไฟไหลผ่านตลอด) เมื่อรีเลย์ทำงานหน้าสัมผัสจะแยกออก วงจรจะถูกตัดขาด", "badge": "บทที่ 09"}, {"id": "fc_ch09_2", "category": "chapter", "ch": "บทที่ 09", "front": "เฉลย Lab 11: การเขียนโค้ดเปิดไฟ LED เมื่ออุณหภูมิห้องสูงเกินเกณฑ์ทำอย่างไร?", "back": "```cpp\nfloat t = dht.readTemperature();\nif (t > 30.0) {\n  digitalWrite(LEDPIN, HIGH); // ร้อนเกิน 30°C เปิดไฟแจ้งเตือน\n} else {\n  digitalWrite(LEDPIN, LOW);  // อุณหภูมิปกติ ปิดไฟ\n}\n```<br><em>(วนลูปอ่านค่าทุก 2 วินาทีตามสเปกของ DHT11)</em>", "badge": "บทที่ 09"}, {"id": "fc_ch10_1", "category": "chapter", "ch": "บทที่ 10", "front": "3 องค์ประกอบหลักในสถาปัตยกรรม Publish/Subscribe ของ MQTT คืออะไร?", "back": "1. <strong>Broker (แม่ข่ายตัวกลาง)</strong>: เซิร์ฟเวอร์ทำหน้าที่รับข้อความจากผู้ส่ง กรองหัวข้อ (Topic) และกระจายไปยังผู้รับ (เช่น HiveMQ Cloud)<br>2. <strong>Publisher (ผู้ส่ง)</strong>: อุปกรณ์หรือโปรแกรมที่ส่งข้อความไปยัง Topic ที่ระบุ เช่น ESP32 ส่งค่าอุณหภูมิ<br>3. <strong>Subscriber (ผู้รับ)</strong>: อุปกรณ์หรือแอปที่ลงทะเบียนขอรับข้อมูลใน Topic ที่สนใจ เช่น Web Dashboard<br><em>(ผู้ส่งและผู้รับไม่จำเป็นต้องรู้จักกันโดยตรง: Decoupled Architecture)</em>", "badge": "บทที่ 10"}, {"id": "fc_ch10_2", "category": "chapter", "ch": "บทที่ 10", "front": "ระดับคุณภาพการส่งมอบข้อมูล (QoS) ของ MQTT มีกี่ระดับ และต่างกันอย่างไร?", "back": "มี <strong>3 ระดับ</strong>:<br>• <strong>QoS 0 (At most once)</strong>: ส่งครั้งเดียว ไม่รอตอบรับ อาจสูญหายได้ เร็วสุด กินไฟน้อยสุด (เหมาะกับค่าเซ็นเซอร์ที่ส่งถี่ๆ)<br>• <strong>QoS 1 (At least once)</strong>: ส่งและรอตอบรับ ส่งซ้ำจนกว่าจะถึง การันตีถึงแน่นอนแต่อาจซ้ำ<br>• <strong>QoS 2 (Exactly once)</strong>: จับมือ 4 ขั้นตอน การันตีถึงครั้งเดียวแน่นอน ไม่สูญหายและไม่ซ้ำซ้อน ปลอดภัยสูงสุดแต่ช้าสุด", "badge": "บทที่ 10"}, {"id": "fc_ch10_3", "category": "chapter", "ch": "บทที่ 10", "front": "รูปแบบโครงสร้างข้อมูล JSON ในการส่ง Payload บน MQTT มีกี่แบบ อะไรบ้าง?", "back": "มี <strong>2 รูปแบบหลัก</strong>:<br>1. <strong>Object</strong>: อยู่ในเครื่องหมายปีกกา <code>{ }</code> เก็บข้อมูลเป็นคู่ <code>Key : Value</code> โดย Key เป็นสตริง เช่น <code>{\"temp\": 29.5, \"humid\": 65}</code><br>2. <strong>Array</strong>: อยู่ในเครื่องหมายก้ามปู <code>[ ]</code> เก็บข้อมูลเป็นชุดลำดับคั่นด้วยจุลภาค เช่น <code>[\"Sensor1\", \"Sensor2\"]</code>", "badge": "บทที่ 10"}, {"id": "fc_sens_1", "category": "sensor", "ch": "บทที่ 09", "front": "🔬 เซ็นเซอร์: DHT11<br><small>(Digital Temperature & Humidity)</small>", "back": "• <strong>หน้าที่</strong>: วัดอุณหภูมิ (0-50°C, $\\pm 2^\\circ\\text{C}$) และความชื้นสัมพัทธ์ในอากาศ (20-90% RH, $\\pm 5\\%$)<br>• <strong>ประเภทสัญญาณ</strong>: ดิจิทัลแบบสายเดี่ยว (Single-wire Serial Data 40 บิต)<br>• <strong>ขาเชื่อมต่อ</strong>: VCC (3.3V), GND, DATA (ต่อขา GPIO เช่น GPIO4, D22)<br>• <strong>ข้อควรระวัง</strong>: ควรอ่านค่าห่างกันอย่างน้อย 2 วินาที (Sampling Rate 0.5-1 Hz)", "badge": "Sensor"}, {"id": "fc_sens_2", "category": "sensor", "ch": "บทที่ 09", "front": "🔬 เซ็นเซอร์: Soil Moisture Sensor (YL-69)", "back": "• <strong>หน้าที่</strong>: วัดความชื้นในดิน<br>• <strong>หลักการ</strong>: โพรบ 2 ขาปักลงดินเพื่อวัดความต้านทานไฟฟ้า ดินเปียกมีน้ำมากนำไฟฟ้าดี (ความต้านทานต่ำ ค่าโวลต์ AO ต่ำ) ดินแห้งนำไฟฟ้าแย่ (ความต้านทานสูง ค่าโวลต์ AO สูง)<br>• <strong>ขาเชื่อมต่อ</strong>: VCC (3.3-5V), GND, AO (Analog Out), DO (Digital Out ปรับความไวด้วย VR)", "badge": "Sensor"}, {"id": "fc_sens_3", "category": "sensor", "ch": "บทที่ 09", "front": "🔬 เซ็นเซอร์: LDR Light Sensor (Photoresistor)", "back": "• <strong>หน้าที่</strong>: ตรวจวัดความเข้มของแสงสว่าง<br>• <strong>หลักการ</strong>: สารกึ่งตัวนำ CdS ในที่มืดความต้านทานสูงมาก (เมกะโอห์ม) เมื่อได้รับแสงสว่างความต้านทานจะลดลงเหลือไม่กี่ร้อยโอห์ม<br>• <strong>การต่อวงจร</strong>: ต่อร่วมกับตัวต้านทาน 10 k$\\Omega$ เป็นวงจรแบ่งแรงดัน (Voltage Divider) เข้าขา Analog ADC", "badge": "Sensor"}, {"id": "fc_sens_4", "category": "sensor", "ch": "บทที่ 03", "front": "🔬 เซ็นเซอร์: Ultrasonic Distance Sensor (HC-SR04)", "back": "• <strong>หน้าที่</strong>: วัดระยะห่างจากวัตถุ (2 ซม. ถึง 400 ซม.)<br>• <strong>หลักการ</strong>: ปล่อยคลื่นเสียงความถี่สูง 40 kHz ไปกระทบวัตถุและจับเวลาการสะท้อนกลับ<br>• <strong>ขาเชื่อมต่อ</strong>: VCC (3.3-5V), GND, Trig (สั่งยิงคลื่น), Echo (รับสัญญาณสะท้อนกลับ)", "badge": "Sensor"}, {"id": "fc_sens_5", "category": "sensor", "ch": "บทที่ 02", "front": "🔬 เซ็นเซอร์: PIR Motion Sensor", "back": "• <strong>หน้าที่</strong>: ตรวจจับความเคลื่อนไหวของมนุษย์หรือสัตว์<br>• <strong>หลักการ</strong>: ตรวจจับรังสีอินฟราเรดย่านไกล (Far Infrared: FIR) ที่แผ่ออกมาจากความร้อนร่างกายของสิ่งมีชีวิต มีเลนส์ Fresnel สีขาวช่วยรวมแสง<br>• <strong>สัญญาณเอาต์พุต</strong>: ดิจิทัล (พบการเคลื่อนไหวส่ง HIGH / ปกติส่ง LOW)", "badge": "Sensor"}, {"id": "fc_sens_6", "category": "sensor", "ch": "บทที่ 02", "front": "🔬 เซ็นเซอร์: Infrared Obstacle Sensor (FC-51)", "back": "• <strong>หน้าที่</strong>: ตรวจจับสิ่งกีดขวางระยะใกล้ (2 - 30 ซม.)<br>• <strong>หลักการ</strong>: มีหลอด IR LED เปล่งแสงอินฟราเรดออกไป เมื่อมีวัตถุขวาง แสงจะสะท้อนกลับเข้าหลอดรับ Phototransistor สีดำ<br>• <strong>การใช้งาน</strong>: หุ่นยนต์หลบหลีกสิ่งกีดขวาง สวิตช์ตรวจจับวัตถุบนสายพาน", "badge": "Sensor"}, {"id": "fc_sens_7", "category": "sensor", "ch": "บทที่ 02", "front": "🔬 เซ็นเซอร์: Rain Detection Sensor (MH-RD)", "back": "• <strong>หน้าที่</strong>: ตรวจจับหยดน้ำฝนและการเปียกน้ำ<br>• <strong>หลักการ</strong>: แผ่น PCB ลายทองแดงสลับฟันปลา เมื่อหยดน้ำฝนตกลงมาจะทำหน้าที่เป็นตัวนำไฟฟ้าเชื่อมระหว่างขั้ว ทำให้กระแสไฟฟ้าไหลผ่านได้<br>• <strong>การใช้งาน</strong>: ระบบเก็บผ้าใบอัตโนมัติ ระบบปิดหน้าต่างเมื่อฝนตก", "badge": "Sensor"}, {"id": "fc_sens_8", "category": "sensor", "ch": "บทที่ 02", "front": "🔬 เซ็นเซอร์: Gas Sensor (MQ Series / LPG & Natural Gas)", "back": "• <strong>หน้าที่</strong>: ตรวจจับก๊าซหุงต้ม LPG, ก๊าซมีเทน และควันไฟ<br>• <strong>หลักการ</strong>: ขดลวดความร้อนภายในทำปฏิกิริยากับโมเลกุลของก๊าซติดไฟ ทำให้สารกึ่งตัวนำ SnO2 มีความนำไฟฟ้าสูงขึ้น (ความต้านทานลดลง)<br>• <strong>การใช้งาน</strong>: ระบบแจ้งเตือนแก๊สรั่วในห้องครัวและโรงงาน", "badge": "Sensor"}, {"id": "fc_sens_9", "category": "sensor", "ch": "บทที่ 09", "front": "⚡ อุปกรณ์: Relay Module (รีเลย์)", "back": "• <strong>หน้าที่</strong>: สวิตช์ควบคุมด้วยแม่เหล็กไฟฟ้า ทำหน้าที่เป็นฉนวนแยกทางไฟฟ้าระหว่างไมโครคอนโทรลเลอร์แรงดันต่ำกับโหลดกำลังสูง<br>• <strong>ขาควบคุม</strong>: VCC (5V), GND, IN (ลอจิกจากบอร์ด)<br>• <strong>ขั้วต่อโหลด</strong>: COM (ขั้วกลาง), NO (ปกติเปิด - สั่งงานแล้วต่อ), NC (ปกติปิด - สั่งงานแล้วตัด)<br>• <strong>การใช้งาน</strong>: สั่งเปิด-ปิดปั๊มน้ำ พัดลมระบายอากาศ และหลอดไฟบ้าน 220VAC", "badge": "Actuator"}, {"id": "fc_sens_10", "category": "sensor", "ch": "บทที่ 02", "front": "🔬 เซ็นเซอร์: Flame Sensor Module (ตรวจจับเปลวไฟ)", "back": "• <strong>หน้าที่</strong>: ตรวจจับเปลวไฟและประกายไฟ<br>• <strong>หลักการ</strong>: ตัวรับ Photodiode ตอบสนองเฉพาะย่านสเปกตรัมแสงอินฟราเรดความยาวคลื่น 760 nm - 1100 nm ซึ่งเป็นย่านที่เปลวไฟปล่อยออกมามากที่สุด จึงไม่ถูกหลอกด้วยแสงหลอดไฟบ้านทั่วไป<br>• <strong>การใช้งาน</strong>: ระบบตัดแก๊สและแจ้งเตือนเพลิงไหม้อัตโนมัติ", "badge": "Sensor"}, {"id": "fc_sens_11", "category": "sensor", "ch": "บทที่ 02", "front": "🔬 เซ็นเซอร์: Reed Switch Sensor (สวิตช์แม่เหล็ก)", "back": "• <strong>หน้าที่</strong>: ตรวจจับสนามแม่เหล็กและการเปิด-ปิดประตูหน้าต่าง<br>• <strong>หลักการ</strong>: แผ่นโลหะสปริงเฟอร์โรแมกเนติกบรรจุในหลอดแก้วสุญญากาศ เมื่อมีแม่เหล็กเข้าใกล้ แผ่นโลหะจะดูดติดกันต่อวงจร<br>• <strong>การใช้งาน</strong>: ระบบสัญญาณกันขโมยประตู-หน้าต่าง เซ็นเซอร์วัดรอบล้อจักรยาน", "badge": "Sensor"}, {"id": "fc_sens_12", "category": "sensor", "ch": "บทที่ 02", "front": "🔬 เซ็นเซอร์: Force Sensitive Resistor (FSR)", "back": "• <strong>หน้าที่</strong>: วัดระดับแรงกดหรือน้ำหนักที่กดทับ<br>• <strong>หลักการ</strong>: แผ่นฟิล์มโพลีเมอร์นำไฟฟ้า เมื่อมีแรงกด อนุภาคตัวนำจะสัมผัสกันแน่นขึ้น ทำให้ค่าความต้านทานลดลงอย่างรวดเร็ว<br>• <strong>การใช้งาน</strong>: แผ่นรองนั่งตรวจจับคน เบาะตรวจจับท่านั่ง แป้นเปียโนไฟฟ้า", "badge": "Sensor"}, {"id": "fc_sens_13", "category": "sensor", "ch": "บทที่ 02", "front": "🔬 เซ็นเซอร์: Ball Switch / Tilt Sensor (สวิตช์บอลเช็คการเอียง)", "back": "• <strong>หน้าที่</strong>: ตรวจจับการเอียง การคว่ำ หรือการหกของวัตถุ<br>• <strong>หลักการ</strong>: มีลูกบอลโลหะกลิ้งอยู่ภายในหลอดปิด เมื่ออุปกรณ์ตั้งตรง ลูกบอลจะกลิ้งมาแตะสองขาต่อวงจร เมื่อเอียงหรือคว่ำ ลูกบอลจะกลิ้งหลุดออกจากขา วงจรจะขาด<br>• <strong>การใช้งาน</strong>: ตรวจจับการล้มของผู้สูงอายุ ระบบตัดไฟกาต้มน้ำเมื่อคว่ำ", "badge": "Sensor"}, {"id": "fc_sens_14", "category": "sensor", "ch": "บทที่ 02", "front": "🔬 เซ็นเซอร์: Shock Sensor Module (ตรวจจับแรงสั่นสะเทือน)", "back": "• <strong>หน้าที่</strong>: ตรวจจับแรงกระแทก การทุบ หรือแผ่นดินไหว<br>• <strong>หลักการ</strong>: ภายในมีสปริงโลหะเส้นเล็ก เมื่อเกิดแรงกระแทก สปริงจะสั่นไหวและสัมผัสกับแกนกลาง เกิดพัลส์สัญญาณส่งเตือนภัย<br>• <strong>การใช้งาน</strong>: สัญญาณเตือนภัยกันขโมยกระจกแตก ตรวจจับการเคาะประตู", "badge": "Sensor"}, {"id": "fc_sens_15", "category": "sensor", "ch": "บทที่ 02", "front": "🔬 เซ็นเซอร์: Sound Sensor Module (ตรวจจับเสียง)", "back": "• <strong>หน้าที่</strong>: ตรวจจับระดับเสียงหรือเสียงดังผิดปกติ<br>• <strong>หลักการ</strong>: ไมโครโฟน Electret แปลงคลื่นเสียงในอากาศเป็นสัญญาณแรงดันไฟฟ้า ผ่านไอซีขยายสัญญาณ LM393 มี VR ปรับความไว<br>• <strong>การใช้งาน</strong>: สวิตช์ตบมือเปิดไฟ ตรวจจับเสียงกระจกแตก", "badge": "Sensor"}, {"id": "fc_sens_16", "category": "sensor", "ch": "บทที่ 02", "front": "🔬 เซ็นเซอร์: Metal Touch Sensor (ตรวจจับสัมผัสโลหะ)", "back": "• <strong>หน้าที่</strong>: ตรวจจับการแตะสัมผัสด้วยนิ้วมือหรือสื่อนำไฟฟ้า<br>• <strong>หลักการ</strong>: ทรานซิสเตอร์ความไวสูงจับความนำไฟฟ้าและประจุไฟฟ้าสถิตจากนิ้วมือมนุษย์<br>• <strong>การใช้งาน</strong>: สวิตช์สัมผัส ปุ่มกดไร้แรงกด", "badge": "Sensor"}, {"id": "fc_acr_1", "category": "acronym", "ch": "บทที่ 01", "front": "🔤 คำย่อ: IoT", "back": "• <strong>คำเต็ม</strong>: Internet of Things<br>• <strong>ภาษาไทย</strong>: อินเทอร์เน็ตของสรรพสิ่ง<br>• <strong>ความหมาย</strong>: ระบบที่สิ่งของต่าง ๆ เชื่อมต่อเครือข่ายอินเทอร์เน็ตและแลกเปลี่ยนข้อมูลกันได้อัตโนมัติโดยไม่ต้องอาศัยมนุษย์คอยป้อนข้อมูล", "badge": "Acronym"}, {"id": "fc_acr_2", "category": "acronym", "ch": "บทที่ 10", "front": "🔤 คำย่อ: MQTT", "back": "• <strong>คำเต็ม</strong>: Message Queuing Telemetry Transport<br>• <strong>ภาษาไทย</strong>: โปรโตคอลการสื่อสารข้อมูลระยะไกลแบบส่งต่อข้อความ (สถาปัตยกรรม Publish/Subscribe)<br>• <strong>จุดเด่น</strong>: ขนาด Header เริ่มต้นเพียง 2 ไบต์ แบนด์วิดท์ต่ำ ประหยัดแบตเตอรี่ เหมาะกับอุปกรณ์ IoT ทรัพยากรจำกัด", "badge": "Acronym"}, {"id": "fc_acr_3", "category": "acronym", "ch": "บทที่ 10", "front": "🔤 คำย่อ: QoS", "back": "• <strong>คำเต็ม</strong>: Quality of Service<br>• <strong>ภาษาไทย</strong>: ระดับการรับประกันคุณภาพในการส่งมอบข้อความ<br>• <strong>มี 3 ระดับ</strong>: QoS 0 (ส่งครั้งเดียว อาจหาย), QoS 1 (การันตีถึงแน่นอน แต่อาจซ้ำ), QoS 2 (ถึงครั้งเดียวแน่นอน ไม่ซ้ำและไม่หาย)", "badge": "Acronym"}, {"id": "fc_acr_4", "category": "acronym", "ch": "บทที่ 08", "front": "🔤 คำย่อ: ADC / A/D", "back": "• <strong>คำเต็ม</strong>: Analog-to-Digital Converter<br>• <strong>ภาษาไทย</strong>: ตัวแปลงสัญญาณแอนะล็อกเป็นดิจิทัล<br>• <strong>หน้าที่</strong>: แปลงระดับแรงดันไฟฟ้าต่อเนื่อง (0-3.3V) ให้เป็นตัวเลขดิจิทัล 10 บิต (0 ถึง 1023)", "badge": "Acronym"}, {"id": "fc_acr_5", "category": "acronym", "ch": "บทที่ 08", "front": "🔤 คำย่อ: PWM", "back": "• <strong>คำเต็ม</strong>: Pulse Width Modulation<br>• <strong>ภาษาไทย</strong>: การมอดูเลตความกว้างสัญญาณพัลส์<br>• <strong>หน้าที่</strong>: เปิด-ปิดสัญญาณดิจิทัลอย่างรวดเร็วและปรับอัตราส่วนช่วงเปิด (Duty Cycle) เพื่อจำลองระดับแรงดันแอนะล็อก เช่น หรี่ไฟ LED หรือคุมความเร็วมอเตอร์", "badge": "Acronym"}, {"id": "fc_acr_6", "category": "acronym", "ch": "บทที่ 09", "front": "🔤 คำย่อ: LDR", "back": "• <strong>คำเต็ม</strong>: Light Dependent Resistor<br>• <strong>ภาษาไทย</strong>: ตัวต้านทานแปรค่าตามความเข้มแสง / โฟโตรีซิสเตอร์<br>• <strong>คุณสมบัติ</strong>: ยิ่งมีแสงสว่างส่องกระทบ ความต้านทานยิ่งลดลง มักใช้ในวงจรเปิดปิดไฟถนนอัตโนมัติ", "badge": "Acronym"}, {"id": "fc_acr_7", "category": "acronym", "ch": "บทที่ 08", "front": "🔤 คำย่อ: GPIO", "back": "• <strong>คำเต็ม</strong>: General-Purpose Input/Output<br>• <strong>ภาษาไทย</strong>: ขาอินพุต/เอาต์พุตอเนกประสงค์<br>• <strong>หน้าที่</strong>: ขาพินบนชิปไมโครคอนโทรลเลอร์ (เช่น ESP32) ที่ผู้พัฒนาสามารถสั่งกำหนดโหมดเป็น INPUT, OUTPUT หรือ PWM ได้อิสระผ่านโค้ด", "badge": "Acronym"}, {"id": "fc_acr_8", "category": "acronym", "ch": "บทที่ 06", "front": "🔤 คำย่อ: LED", "back": "• <strong>คำเต็ม</strong>: Light-Emitting Diode<br>• <strong>ภาษาไทย</strong>: ไดโอดเปล่งแสง<br>• <strong>คุณสมบัติ</strong>: ยอมให้กระแสไฟฟ้าไหลผ่านได้ทางเดียว (จากแอโนด + ไปแคโทด -) และจะเปล่งแสงคลื่นความถี่เดียวออกมา", "badge": "Acronym"}, {"id": "fc_acr_9", "category": "acronym", "ch": "บทที่ 10", "front": "🔤 คำย่อ: JSON", "back": "• <strong>คำเต็ม</strong>: JavaScript Object Notation<br>• <strong>ภาษาไทย</strong>: รูปแบบการจัดเก็บและแลกเปลี่ยนข้อมูลข้อความมาตรฐานสากล<br>• <strong>โครงสร้าง</strong>: ประกอบด้วย Object <code>{ \"key\": value }</code> และ Array <code>[ item1, item2 ]</code> นิยมใช้เป็น Payload ใน MQTT", "badge": "Acronym"}, {"id": "fc_acr_10", "category": "acronym", "ch": "บทที่ 09", "front": "🔤 คำย่อ: NO / NC (ในรีเลย์)", "back": "• <strong>NO (Normally Open)</strong>: หน้าสัมผัสปกติเปิด (วงจรไม่ต่อ ไฟไม่ผ่าน เมื่อรีเลย์ทำงานไฟจึงจะไหลผ่าน)<br>• <strong>NC (Normally Closed)</strong>: หน้าสัมผัสปกติปิด (ไฟไหลผ่านตลอดเวลา เมื่อรีเลย์ทำงานวงจรจึงถูกตัดขาด)", "badge": "Acronym"}, {"id": "fc_acr_11", "category": "acronym", "ch": "บทที่ 06", "front": "🔤 คำย่อ: DC vs AC", "back": "• <strong>DC (Direct Current)</strong>: ไฟฟ้ากระแสตรง ทิศทางการไหลขั้วเดียวสม่ำเสมอ เช่น แบตเตอรี่ โซลาร์เซลล์ บอร์ด IoT<br>• <strong>AC (Alternating Current)</strong>: ไฟฟ้ากระแสสลับ ทิศทางสลับไปมาเป็นรูปคลื่นไซน์ เช่น ไฟฟ้าบ้าน 220V 50Hz", "badge": "Acronym"}, {"id": "fc_acr_12", "category": "acronym", "ch": "บทที่ 01", "front": "🔤 คำย่อ: M2M", "back": "• <strong>คำเต็ม</strong>: Machine-to-Machine<br>• <strong>ภาษาไทย</strong>: การสื่อสารระหว่างเครื่องจักรกับเครื่องจักร<br>• <strong>ความหมาย</strong>: อุปกรณ์ปลายทางคุยและส่งข้อมูลหากันได้โดยตรงโดยไม่ต้องมีมนุษย์เข้ามาแทรกแซงหรือสั่งการ", "badge": "Acronym"}, {"id": "fc_acr_13", "category": "acronym", "ch": "บทที่ 01", "front": "🔤 คำย่อ: WSN", "back": "• <strong>คำเต็ม</strong>: Wireless Sensor Network<br>• <strong>ภาษาไทย</strong>: เครือข่ายเซ็นเซอร์ไร้สาย<br>• <strong>ความหมาย</strong>: กลุ่มเซ็นเซอร์โหนดขนาดเล็กที่กระจายตัวติดตั้งในพื้นที่กว้าง (เช่น แปลงเกษตร ป่าไม้) ส่งข้อมูลผ่านคลื่นวิทยุไปยังตัวแม่ข่าย", "badge": "Acronym"}, {"id": "fc_acr_14", "category": "acronym", "ch": "บทที่ 06", "front": "🔤 คำย่อ: IC", "back": "• <strong>คำเต็ม</strong>: Integrated Circuit<br>• <strong>ภาษาไทย</strong>: วงจรรวม / วงจรเบ็ดเสร็จ (ไอซี)<br>• <strong>ความหมาย</strong>: ชิปแผ่นผลึกซิลิคอนที่บรรจุชิ้นส่วนอิเล็กทรอนิกส์ (ทรานซิสเตอร์ ไดโอด ตัวต้านทาน) หลายล้านตัวไว้ภายในตัวถังขนาดจิ๋ว", "badge": "Acronym"}, {"id": "fc_acr_15", "category": "acronym", "ch": "บทที่ 06", "front": "🔤 คำย่อ: Ah", "back": "• <strong>คำเต็ม</strong>: Ampere-hour<br>• <strong>ภาษาไทย</strong>: แอมแปร์-ชั่วโมง<br>• <strong>ความหมาย</strong>: หน่วยวัดความจุพลังงานไฟฟ้าของแบตเตอรี่ บ่งบอกว่าแบตเตอรี่สามารถจ่ายกระแสไฟฟ้า 1 แอมแปร์ต่อเนื่องได้นานกี่ชั่วโมง", "badge": "Acronym"}, {"id": "fc_acr_16", "category": "acronym", "ch": "บทที่ 01", "front": "🔤 คำย่อ: BLE", "back": "• <strong>คำเต็ม</strong>: Bluetooth Low Energy<br>• <strong>ภาษาไทย</strong>: บลูทูธพลังงานต่ำ<br>• <strong>ความหมาย</strong>: โปรโตคอลการสื่อสารไร้สายระยะใกล้ที่กินพลังงานต่ำมากเป็นพิเศษ นิยมใช้ใน Smart Wearable อุปกรณ์ติดตามสุขภาพ และเซ็นเซอร์ไร้สาย", "badge": "Acronym"}, {"id": "fc_acr_17", "category": "acronym", "ch": "บทที่ 01", "front": "🔤 คำย่อ: RFID vs NFC", "back": "• <strong>RFID (Radio-Frequency Identification)</strong>: การระบุตัวตนด้วยคลื่นวิทยุ ระยะทำการตั้งแต่ไม่กี่เซนติเมตรถึงหลายเมตร นิยมใช้จัดการสต็อกสินค้า ป้ายราคาสินค้า<br>• <strong>NFC (Near Field Communication)</strong>: การสื่อสารระยะใกล้มาก (ไม่เกิน 4-10 ซม.) ปลอดภัยสูง นิยมใช้แตะจ่ายเงินมือถือ บัตรแตะเข้าอาคาร", "badge": "Acronym"}, {"id": "fc_acr_18", "category": "acronym", "ch": "บทที่ 03", "front": "🔤 ขาสัญญาณ: Trig vs Echo (ใน HC-SR04)", "back": "• <strong>Trig (Trigger)</strong>: ขาอินพุตรับสัญญาณพัลส์จาก MCU กว้าง $10\\,\\mu\\text{s}$ สั่งให้ยิงคลื่นเสียง 40 kHz<br>• <strong>Echo (Echo)</strong>: ขาเอาต์พุตส่งพัลส์ HIGH กลับมา ความกว้างเวลาพัลส์เท่ากับเวลาที่คลื่นเดินทางไปกระทบวัตถุแล้วสะท้อนกลับ", "badge": "Acronym"}];
+    let activeCategory = 'all';
+    let activeChapter = 'all';
+    let currentCards = [];
+    let currentIndex = 0;
+    let isFlipped = false;
+
+    // Mobile Menu Drawer Toggle
+    function toggleMobileMenu() {
+      const drawer = document.getElementById('mobileDrawer');
+      drawer.classList.toggle('open');
+    }
+
+    // Initialize Flashcards
+    function initFlashcards() {
+      // Update Tab Counts
+      document.getElementById('countAll').innerText = rawFlashcards.length;
+      document.getElementById('countChapter').innerText = rawFlashcards.filter(c => c.category === 'chapter').length;
+      document.getElementById('countSensor').innerText = rawFlashcards.filter(c => c.category === 'sensor').length;
+      document.getElementById('countAcronym').innerText = rawFlashcards.filter(c => c.category === 'acronym').length;
+
+      filterCards();
+    }
+
+    function setFlashcardCategory(cat, btn) {
+      activeCategory = cat;
+      document.querySelectorAll('.fc-tab-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      filterCards();
+    }
+
+    function filterFlashcardsByChapter() {
+      activeChapter = document.getElementById('fcChapterFilter').value;
+      filterCards();
+    }
+
+    function filterCards() {
+      currentCards = rawFlashcards.filter(card => {
+        const matchCat = (activeCategory === 'all' || card.category === activeCategory);
+        const matchCh = (activeChapter === 'all' || card.ch === activeChapter);
+        return matchCat && matchCh;
+      });
+
+      currentIndex = 0;
+      isFlipped = false;
+      renderCurrentCard();
+    }
+
+    function renderCurrentCard() {
+      const cardEl = document.getElementById('flashcardElement');
+      cardEl.classList.remove('is-flipped');
+      isFlipped = false;
+
+      if (currentCards.length === 0) {
+        document.getElementById('fcQuestionText').innerHTML = "<em>ไม่พบแฟลชการ์ดในหมวดหมู่นี้ กรุณาเลือกตัวกรองใหม่</em>";
+        document.getElementById('fcAnswerText').innerHTML = "-";
+        document.getElementById('fcCounter').innerText = "0 / 0";
+        document.getElementById('fcProgressBar').style.width = "0%";
+        return;
+      }
+
+      const card = currentCards[currentIndex];
+      document.getElementById('fcQuestionText').innerHTML = card.front;
+      document.getElementById('fcAnswerText').innerHTML = card.back;
+      
+      const badgeFront = document.getElementById('fcBadgeFront');
+      const badgeBack = document.getElementById('fcBadgeBack');
+      badgeFront.innerText = card.badge + " • " + card.ch;
+      badgeBack.innerText = card.badge + " • เฉลย";
+
+      // Badge style
+      badgeFront.className = 'fc-badge ' + getBadgeClass(card.category);
+      badgeBack.className = 'fc-badge ' + getBadgeClass(card.category);
+
+      // Counter & Progress
+      document.getElementById('fcCounter').innerText = (currentIndex + 1) + " / " + currentCards.length;
+      const pct = ((currentIndex + 1) / currentCards.length) * 100;
+      document.getElementById('fcProgressBar').style.width = pct + "%";
+    }
+
+    function getBadgeClass(cat) {
+      if (cat === 'chapter') return 'badge-chapter';
+      if (cat === 'sensor') return 'badge-sensor';
+      if (cat === 'acronym') return 'badge-acronym';
+      return 'badge-chapter';
+    }
+
+    function flipCard() {
+      const cardEl = document.getElementById('flashcardElement');
+      isFlipped = !isFlipped;
+      cardEl.classList.toggle('is-flipped', isFlipped);
+    }
+
+    function nextCard() {
+      if (currentCards.length === 0) return;
+      currentIndex = (currentIndex + 1) % currentCards.length;
+      renderCurrentCard();
+    }
+
+    function prevCard() {
+      if (currentCards.length === 0) return;
+      currentIndex = (currentIndex - 1 + currentCards.length) % currentCards.length;
+      renderCurrentCard();
+    }
+
+    function shuffleCards() {
+      if (currentCards.length <= 1) return;
+      for (let i = currentCards.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [currentCards[i], currentCards[j]] = [currentCards[j], currentCards[i]];
+      }
+      currentIndex = 0;
+      renderCurrentCard();
+    }
+
+    // Keyboard Shortcuts for Flashcards
+    document.addEventListener('keydown', function(e) {
+      // Only trigger if modal is not open
+      if (document.getElementById('imageModal').style.display === 'flex') return;
+
+      if (e.code === 'Space') {
+        e.preventDefault();
+        flipCard();
+      } else if (e.code === 'ArrowRight') {
+        nextCard();
+      } else if (e.code === 'ArrowLeft') {
+        prevCard();
+      }
+    });
+
     // Lightbox modal functionality
     function openModal(imgSrc, caption) {
       document.getElementById('modalImg').src = imgSrc;
@@ -5326,6 +5958,9 @@
         }
       }
     }
+
+    // Run on load
+    window.addEventListener('DOMContentLoaded', initFlashcards);
   </script>
 </body>
 </html>
